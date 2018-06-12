@@ -4,10 +4,13 @@ package com.fireway.cpms.filter;
 import com.fireway.cpms.util.SessionWrapper;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebFilter(urlPatterns = {"/assignee","/deployment","/log","/message","/member",
+        "/position","/project","/role","/stage","/template","/type","/user"})
 public class AuthorizedFilter implements Filter {
     private FilterConfig config = null;
 

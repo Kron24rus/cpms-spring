@@ -1,6 +1,5 @@
 package com.fireway.cpms;
 
-import com.fireway.cpms.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -8,21 +7,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.filter.DelegatingFilterProxy;
-import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.sql.DataSource;
 
 @RestController
 @SpringBootApplication
+@ServletComponentScan(basePackages = {
+		"com.fireway.cpms.service",
+		"com.fireway.cpms.filter",
+		"com.fireway.cpms.listener"
+})
 @EnableAutoConfiguration(exclude = {
 		DataSourceAutoConfiguration.class,
 		DataSourceTransactionManagerAutoConfiguration.class,
@@ -32,10 +31,10 @@ public class CpmsApplication {
 	@Autowired
 	private Environment env;
 
-	@RequestMapping("/")
-	String home() {
-		return "Hello World!";
-	}
+//	@RequestMapping("/")
+//	String home() {
+//		return "Hello World!";
+//	}
 
 //	@Bean
 //	public FilterRegistrationBean securityFilterChainRegistration() {
@@ -78,96 +77,93 @@ public class CpmsApplication {
 		return dataSource;
 	}
 
-	@Bean
-	public ServletRegistrationBean assigneeServlet() {
-		return new ServletRegistrationBean(new AssigneeServlet(), "/assignee");
-	}
-
-	@Bean
-	public ServletRegistrationBean deploymentServlet() {
-		return new ServletRegistrationBean(new DeploymentServlet(), "/deployment");
-	}
-
-	@Bean
-	public ServletRegistrationBean hashServlet() {
-		return new ServletRegistrationBean(new HashServlet(), "/hash");
-	}
-	@Bean
-	public ServletRegistrationBean helloServlet() {
-		return new ServletRegistrationBean(new HelloServlet(), "/hello");
-	}
-
-	@Bean
-	public ServletRegistrationBean loginServlet() {
-		return new ServletRegistrationBean(new LoginServlet(), "/login");
-	}
-
-	@Bean
-	public ServletRegistrationBean logoutServlet() {
-		return new ServletRegistrationBean(new LogoutServlet(), "/logout");
-	}
-
-	@Bean
-	public ServletRegistrationBean messageServlet() {
-		return new ServletRegistrationBean(new MessageServlet(), "/message");
-	}
-
-
-	@Bean
-	public ServletRegistrationBean logServlet() {
-		return new ServletRegistrationBean(new LogServlet(), "/log");
-	}
-
-	@Bean
-	public ServletRegistrationBean memberServlet() {
-		return new ServletRegistrationBean(new MemberServlet(), "/member");
-	}
-
-	@Bean
-	public ServletRegistrationBean positionServlet() {
-		return new ServletRegistrationBean(new PositionServlet(), "/position");
-	}
-
-	@Bean
-	public ServletRegistrationBean projectServlet() {
-		return new ServletRegistrationBean(new ProjectServlet(), "/project");
-	}
-
-	@Bean
-	public ServletRegistrationBean resourceServlet() {
-		return new ServletRegistrationBean(new ResourceServlet(), "/resources/*");
-	}
-
-	@Bean
-	public ServletRegistrationBean roleServlet() {
-		return new ServletRegistrationBean(new RoleServlet(), "/role");
-	}
-
-	@Bean
-	public ServletRegistrationBean stageServlet() {
-		return new ServletRegistrationBean(new StageServlet(), "/stage");
-	}
-
-	@Bean
-	public ServletRegistrationBean startupServlet() {
-		return new ServletRegistrationBean(new StartupServlet(), "/startup");
-	}
-
-	@Bean
-	public ServletRegistrationBean templateServlet() {
-		return new ServletRegistrationBean(new TemplateServlet(), "/template");
-	}
-
-	@Bean
-	public ServletRegistrationBean typeServlet() {
-		return new ServletRegistrationBean(new TypeServlet(), "/type");
-	}
-
-	@Bean
-	public ServletRegistrationBean userServlet() {
-		return new ServletRegistrationBean(new UserServlet(), "/user");
-	}
-
-
-
+//	@Bean
+//	public ServletRegistrationBean assigneeServlet() {
+//		return new ServletRegistrationBean(new AssigneeServlet(), "/assignee");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean deploymentServlet() {
+//		return new ServletRegistrationBean(new DeploymentServlet(), "/deployment");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean hashServlet() {
+//		return new ServletRegistrationBean(new HashServlet(), "/hash");
+//	}
+//	@Bean
+//	public ServletRegistrationBean helloServlet() {
+//		return new ServletRegistrationBean(new HelloServlet(), "/hello");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean loginServlet() {
+//		return new ServletRegistrationBean(new LoginServlet(), "/login");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean logoutServlet() {
+//		return new ServletRegistrationBean(new LogoutServlet(), "/logout");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean messageServlet() {
+//		return new ServletRegistrationBean(new MessageServlet(), "/message");
+//	}
+//
+//
+//	@Bean
+//	public ServletRegistrationBean logServlet() {
+//		return new ServletRegistrationBean(new LogServlet(), "/log");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean memberServlet() {
+//		return new ServletRegistrationBean(new MemberServlet(), "/member");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean positionServlet() {
+//		return new ServletRegistrationBean(new PositionServlet(), "/position");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean projectServlet() {
+//		return new ServletRegistrationBean(new ProjectServlet(), "/project");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean resourceServlet() {
+//		return new ServletRegistrationBean(new ResourceServlet(), "/resources/*");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean roleServlet() {
+//		return new ServletRegistrationBean(new RoleServlet(), "/role");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean stageServlet() {
+//		return new ServletRegistrationBean(new StageServlet(), "/stage");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean startupServlet() {
+//		return new ServletRegistrationBean(new StartupServlet(), "/startup");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean templateServlet() {
+//		return new ServletRegistrationBean(new TemplateServlet(), "/template");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean typeServlet() {
+//		return new ServletRegistrationBean(new TypeServlet(), "/type");
+//	}
+//
+//	@Bean
+//	public ServletRegistrationBean userServlet() {
+//		return new ServletRegistrationBean(new UserServlet(), "/user");
+//	}
 }

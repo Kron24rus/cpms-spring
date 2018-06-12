@@ -1,8 +1,10 @@
 package com.fireway.cpms.filter;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+@WebFilter("/*")
 public class EncodingFilter implements Filter {
     private FilterConfig config = null;
 
