@@ -4,8 +4,11 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "Project", schema = "", catalog = "dream_team_cpms")
 public class Project implements Serializable {
     private int id;
     private String name;
@@ -13,6 +16,9 @@ public class Project implements Serializable {
     private boolean active;
     private Integer priority;
 
+    private ProjectType projectType;
+    private Set<UserToProject> projectToUsers = new HashSet<>(0);
+    private Set<ProjectStage> projectStages = new HashSet<>(0);
 
     private int projectTypeId;
 
@@ -69,6 +75,33 @@ public class Project implements Serializable {
         this.priority = priority;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "ProjectTypeId")
+    public ProjectType getProjectType() {
+        return projectType;
+    }
+
+    public void setProjectType(ProjectType projectType) {
+        this.projectType = projectType;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
+    public Set<UserToProject> getProjectToUsers() {
+        return projectToUsers;
+    }
+
+    public void setProjectToUsers(Set<UserToProject> projectToUsers) {
+        this.projectToUsers = projectToUsers;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
+    public Set<ProjectStage> getProjectStages() {
+        return projectStages;
+    }
+
+    public void setProjectStages(Set<ProjectStage> projectStages) {
+        this.projectStages = projectStages;
+    }
 
     @Column(name = "ProjectTypeId", updatable = false, insertable = false)
     public int getProjectTypeId() {
