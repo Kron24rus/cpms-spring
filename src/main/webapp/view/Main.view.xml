@@ -1,0 +1,41 @@
+<mvc:View controllerName="dt.cpms.controller.Main" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:t="sap.tnt" xmlns:core="sap.ui.core">
+	<t:ToolPage title="{i18n>title}" class="sapUiSizeCompact">
+	    <t:header>
+			<t:ToolHeader>
+			    <Button 
+			        icon="sap-icon://menu2"
+					type="Transparent"
+					press="onSideNavButtonPress"/>
+				<ToolbarSpacer width="20px" />
+				<Button text="{i18n>title.projects}" type="Transparent" press="initProjects" enabled="{= ${ui>/tab} !== 'projects' }"/>
+				<Button text="Messages" type="Transparent" press="initMessages" enabled="{= ${ui>/tab} !== 'messages' }"/>
+				<ToolbarSpacer/>
+				<Button text="{user>/firstName} {user>/lastName}" type="Transparent" press="handleUserNamePress"/>
+			</t:ToolHeader>
+	    </t:header>
+	    <t:sideContent>
+		<!--	<t:SideNavigation expanded="true" itemSelect="onItemSelect">
+				<t:NavigationList>
+					<t:NavigationListItem text="Title"
+											icon="sap-icon://user"
+											enabled="true"
+											expanded="false" key=""/>
+				</t:NavigationList>
+				<t:fixedItem>
+					<t:NavigationList items="{path: '/fixedNavigation'}">
+						<t:NavigationListItem text="Text" icon="sap-icon://user" visible="false"/>
+					</t:NavigationList>
+				</t:fixedItem>
+			</t:SideNavigation>-->
+		</t:sideContent>
+		<t:mainContents>
+			<NavContainer id="container" defaultTransitionName="fade">
+				<pages>
+                    <core:Fragment fragmentName="dt.cpms.view.page.Projects" type="XML" />
+                    <core:Fragment fragmentName="dt.cpms.view.page.Messages" type="XML" />
+				</pages>
+			</NavContainer>
+		</t:mainContents>
+	</t:ToolPage>
+</mvc:View>

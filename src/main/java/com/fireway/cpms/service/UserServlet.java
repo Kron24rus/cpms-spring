@@ -15,12 +15,14 @@ import com.fireway.cpms.model.User;
 import com.fireway.cpms.util.RequestWrapper;
 import com.fireway.cpms.util.ResponseWrapper;
 
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 
+@WebServlet(name = "user", urlPatterns = "/user")
 public class UserServlet extends GenericServlet {
     private static UserDaoImpl userDao = new UserDaoImpl();
 

@@ -12,9 +12,11 @@ import com.fireway.cpms.util.RequestWrapper;
 import com.fireway.cpms.util.ResponseWrapper;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+@WebServlet(name = "role", urlPatterns = "/role")
 public class RoleServlet extends GenericServlet {
     private static ProjectRoleDaoImpl roleDao = new ProjectRoleDaoImpl();
 

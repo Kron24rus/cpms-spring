@@ -13,10 +13,12 @@ import com.fireway.cpms.util.RequestWrapper;
 import com.fireway.cpms.util.ResponseWrapper;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@WebServlet(name = "log", urlPatterns = "/log")
 public class LogServlet extends GenericServlet{
     private static ProjectDaoImpl projectDao = new ProjectDaoImpl();
     private static ProjectLogDaoImpl logDao = new ProjectLogDaoImpl();

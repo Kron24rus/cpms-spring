@@ -14,12 +14,14 @@ import com.fireway.cpms.util.RequestWrapper;
 import com.fireway.cpms.util.ResponseWrapper;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@WebServlet(name = "message", urlPatterns = "/message")
 public class MessageServlet extends GenericServlet {
     private static UserDaoImpl userDao = new UserDaoImpl();
     private static MessageDaoImpl messageDao = new MessageDaoImpl();

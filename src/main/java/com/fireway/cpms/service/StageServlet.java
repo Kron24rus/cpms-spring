@@ -17,10 +17,12 @@ import com.fireway.cpms.util.ResponseWrapper;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@WebServlet(name = "stage", urlPatterns = "/stage")
 public class StageServlet extends GenericServlet{
     private static ProjectDaoImpl projectDao = new ProjectDaoImpl();
     private static ProjectStageDaoImpl stageDao = new ProjectStageDaoImpl();

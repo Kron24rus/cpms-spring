@@ -15,9 +15,11 @@ import com.fireway.cpms.util.RequestWrapper;
 import com.fireway.cpms.util.ResponseWrapper;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+@WebServlet(name = "assignee", urlPatterns = "/assignee")
 public class AssigneeServlet extends GenericServlet {
     private static ProjectDaoImpl projectDao = new ProjectDaoImpl();
     private static ProjectStageDaoImpl stageDao = new ProjectStageDaoImpl();

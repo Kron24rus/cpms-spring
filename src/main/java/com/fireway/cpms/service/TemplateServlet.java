@@ -10,10 +10,12 @@ import com.fireway.cpms.util.RequestWrapper;
 import com.fireway.cpms.util.ResponseWrapper;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@WebServlet(name = "template", urlPatterns = "/template")
 public class TemplateServlet extends GenericServlet{
     private static ProjectStageTemplateDaoImpl templateDao = new ProjectStageTemplateDaoImpl();
 

@@ -13,11 +13,13 @@ import com.fireway.cpms.util.ResponseWrapper;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@WebServlet(name = "deployment", urlPatterns = "/deployment")
 public class DeploymentServlet extends GenericServlet {
     private static ProjectDaoImpl projectDao = new ProjectDaoImpl();
     private static ProjectStageDaoImpl projectStageDao = new ProjectStageDaoImpl();

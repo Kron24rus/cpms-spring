@@ -9,10 +9,12 @@ import com.fireway.cpms.util.RequestWrapper;
 import com.fireway.cpms.util.ResponseWrapper;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@WebServlet(name = "position", urlPatterns = "/position")
 public class PositionServlet extends GenericServlet {
     private static PositionDaoImpl positionDao = new PositionDaoImpl();
 

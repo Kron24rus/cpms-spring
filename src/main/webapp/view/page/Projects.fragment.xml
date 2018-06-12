@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+	<ScrollContainer class="sapUiContentPadding"
+	                id="projects"
+					 horizontal="false"
+					 vertical="true"
+					 height="100%">
+		<List items="{data>/Projects/My}">
+		    <headerToolbar>
+		        <Toolbar>
+		            <Title text="My Projects"/>
+		        </Toolbar>
+		    </headerToolbar>
+		    <items>
+		        <ObjectListItem title="{data>name}" type="Active" number="{data>projectType/name}" icon="sap-icon://idea-wall">
+    				<firstStatus>
+    					<ObjectStatus
+    						text="{ path: 'data>priority', formatter: '.formatter.priorityName' }"
+    						state="{ path: 'data>priority', formatter: '.formatter.priorityState' }" />
+    				</firstStatus>
+    				<attributes>
+    					<ObjectAttribute text="{data>description}" />
+    				</attributes>
+		        </ObjectListItem>
+		    </items>
+		</List>
+		<List items="{data>/Projects/All}">
+		    <headerToolbar>
+		        <Toolbar>
+		            <Title text="All Projects"/>
+		        </Toolbar>
+		    </headerToolbar>
+		    <items>
+		        <ObjectListItem title="{data>name}" type="Active" number="{data>projectType/name}" icon="sap-icon://idea-wall">
+    				<firstStatus>
+    					<ObjectStatus
+    						text="{ path: 'data>priority', formatter: '.formatter.priorityName' }"
+    						state="{ path: 'data>priority', formatter: '.formatter.priorityState' }" />
+    				</firstStatus>
+    				<attributes>
+    					<ObjectAttribute text="{data>description}" />
+    				</attributes>
+		        </ObjectListItem>
+		    </items>
+		</List>
+	</ScrollContainer>
+</core:FragmentDefinition>
