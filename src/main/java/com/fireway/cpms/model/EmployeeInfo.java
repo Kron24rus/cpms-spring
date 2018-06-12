@@ -1,5 +1,6 @@
 package com.fireway.cpms.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -63,9 +64,8 @@ public class EmployeeInfo implements Serializable {
 
         if (id != that.id)
             return false;
-        if (!Objects.equals(description, that.description)) {
+        if (!StringUtils.equals(description, that.description))
             return false;
-        }
 
         return true;
     }
