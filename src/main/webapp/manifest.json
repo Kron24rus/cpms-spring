@@ -1,0 +1,153 @@
+{
+	"_version": "1.7.0",
+	"sap.app": {
+		"id": "dt.cpms",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
+		}
+	},
+
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+
+		]
+	},
+
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "dt.cpms.view.App",
+			"type": "XML",
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.tnt": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "dt.cpms.i18n.i18n"
+				}
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "dt.cpms.view",
+                "controlId": "app",
+                "controlAggregation": "detailPages",
+                "async": true
+            },
+    		"routes": [
+    		    {
+    		        "pattern": "",
+    		        "name": "master",
+    		        "target": ["welcome", "master"]
+    		    },
+    		    {
+    		        "pattern": "messages",
+    		        "name": "messages",
+    		        "target": ["master", "messages"]
+    		    },
+    		    {
+    		        "pattern": "project/{id}",
+    		        "name": "project",
+    		        "target": ["master", "project"]
+    		    },
+    		    {
+    		        "pattern": "projects",
+    		        "name": "projects",
+    		        "target": ["master", "projects"]
+    		    },
+    		    {
+    		        "pattern": "stage",
+    		        "name": "stage",
+    		        "target": ["master", "stage"]
+    		    },
+    		    {
+    		        "pattern": "user/{id}",
+    		        "name": "user",
+    		        "target": ["master", "user"]
+    		    }
+    		],
+    		"targets": {
+    		    "master": {
+    		        "viewName": "Master",
+					"viewLevel": 1,
+				    "viewId": "master",
+					"controlAggregation": "masterPages"
+    		    },
+    		    "messages": {
+    		        "viewName": "Messages",
+    		        "viewId": "messages",
+					"viewLevel": 2
+    		    },
+    		    "project": {
+    		        "viewName": "Project",
+    		        "viewId": "project",
+					"viewLevel": 3
+    		    },
+    		    "projects": {
+    		        "viewName": "Projects",
+    		        "viewId": "projects",
+					"viewLevel": 2
+    		    },
+    		    "stage": {
+    		        "viewName": "Stage",
+    		        "viewId": "stage",
+					"viewLevel": 4
+    		    },
+    		    "user": {
+    		        "viewName": "User",
+    		        "viewId": "user",
+					"viewLevel": 3
+    		    },
+    		    "welcome": {
+    		        "viewName": "Welcome",
+    		        "viewId": "welcome",
+					"viewLevel": 2
+    		    }
+    		}
+        }
+	}
+}
