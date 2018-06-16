@@ -3,6 +3,9 @@ package com.fireway.cpms.dao.util;
 import com.fireway.cpms.LoggerWrapper;
 import com.fireway.cpms.exception.DataAccessException;
 import org.hibernate.*;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
@@ -11,7 +14,8 @@ import java.util.List;
 
 public class HibernateUtil {
     private static final LoggerWrapper LOG = LoggerWrapper.getLogger(HibernateUtil.class);
-    private static final SessionFactory sessionFactory = buildSessionFactory();
+    private static final SessionFactory sessionFactory = getSessionFactory();
+    private static StandardServiceRegistry registry;
 
     private static SessionFactory buildSessionFactory() {
         try {
@@ -24,12 +28,36 @@ public class HibernateUtil {
         }
     }
 
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
     public static Session getSession() {
         return sessionFactory.getCurrentSession();
+    }
+
+    private static SessionFactory getSessionFactory() {
+        SessionFactory newSessionFactory = null;
+        if (sessionFactory == null) {
+            try {
+                // Create registry
+                registry = new StandardServiceRegistryBuilder()
+                        .configure()
+                        .build();
+
+                // Create MetadataSources
+                MetadataSources sources = new MetadataSources(registry);
+
+                // Create Metadata
+                Metadata metadata = sources.getMetadataBuilder().build();
+
+                // Create SessionFactory
+                newSessionFactory = metadata.getSessionFactoryBuilder().build();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (registry != null) {
+                    StandardServiceRegistryBuilder.destroy(registry);
+                }
+            }
+        }
+        return newSessionFactory;
     }
 
     public static Transaction beginTransaction() {
