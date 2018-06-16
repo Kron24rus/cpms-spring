@@ -1,0 +1,52 @@
+<mvc:View controllerName="dt.cpms.controller.Projects" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:s="sap.m.semantic" busyIndicatorDelay="100" >
+	<s:DetailPage title="Project List" showNavButton="{device>/system/phone}" navButtonPress="onNavBack" showFooter="false">
+	    <s:customHeaderContent>
+	        <Button icon="sap-icon://home" visible="{device>/system/phone}" press="navHome"/>
+	    </s:customHeaderContent>
+	    <s:content>
+    		<List items="{data>/Projects/My}">
+    		    <headerToolbar>
+    		        <Toolbar>
+    		            <Title text="My Projects ({path: 'data>/Projects/My', formatter: '.formatter.count'})"/>
+    		            <ToolbarSpacer/>
+    		            <Button icon="sap-icon://add" tooltip="Create" visible="{user>/isAdmin}"/>
+    		        </Toolbar>
+    		    </headerToolbar>
+    		    <items>
+    		        <ObjectListItem title="{data>name}" type="Active" number="{data>projectType/name}" icon="sap-icon://idea-wall" press="navProject">
+        				<firstStatus>
+        					<ObjectStatus
+        						text="{ path: 'data>priority', formatter: '.formatter.priorityName' }"
+        						state="{ path: 'data>priority', formatter: '.formatter.priorityState' }" />
+        				</firstStatus>
+        				<attributes>
+        					<ObjectAttribute text="{data>description}" />
+        				</attributes>
+    		        </ObjectListItem>
+    		    </items>
+    		</List>
+    		<List items="{data>/Projects/All}">
+    		    <headerToolbar>
+    		        <Toolbar>
+    		            <Title text="All Projects ({path: 'data>/Projects/All', formatter: '.formatter.count'})"/>
+    		            <ToolbarSpacer/>
+    		            <Button icon="sap-icon://add" tooltip="Create" visible="{user>/isAdmin}"/>
+    		        </Toolbar>
+    		    </headerToolbar>
+    		    <items>
+    		        <ObjectListItem title="{data>name}" type="Active" number="{data>projectType/name}" icon="sap-icon://idea-wall" press="navProject">
+        				<firstStatus>
+        					<ObjectStatus
+        						text="{ path: 'data>priority', formatter: '.formatter.priorityName' }"
+        						state="{ path: 'data>priority', formatter: '.formatter.priorityState' }" />
+        				</firstStatus>
+        				<attributes>
+        					<ObjectAttribute text="{data>description}" />
+        				</attributes>
+    		        </ObjectListItem>
+    		    </items>
+    		</List>
+		</s:content>
+	</s:DetailPage>
+</mvc:View>

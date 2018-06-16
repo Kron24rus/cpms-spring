@@ -1,0 +1,96 @@
+<mvc:View controllerName="dt.cpms.controller.Project" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:s="sap.m.semantic" busyIndicatorDelay="100" xmlns:ux="sap.uxap">
+	<s:DetailPage title="Project View" showNavButton="true" navButtonPress="onNavBack" showFooter="true">
+        <s:customHeaderContent>
+	        <Button icon="sap-icon://home" visible="{device>/system/phone}" press="navHome"/>
+	    </s:customHeaderContent>
+	    <s:content>
+	        <ux:ObjectPageLayout>
+		        <ux:headerTitle>
+		            <ux:ObjectPageHeader headerDesign="Light" objectTitle="{page>/Project/name}"/>
+		        </ux:headerTitle>
+        		<ux:headerContent>
+        			<l:VerticalLayout>
+        			    <ObjectStatus title="" text="{page>/Project/description}"/>
+        			    <ObjectStatus title="Type" text="{page>/Project/projectType/name}"/>
+        			    <ObjectStatus state="{= ${page>/Project/active} ? 'Success' : 'Error'}" text="{= ${page>/Project/active} ? 'Active' : 'Disabled'}"/>
+        			</l:VerticalLayout>
+        		</ux:headerContent>
+        		
+        		<ux:sections>
+        			<ux:ObjectPageSection title="" showTitle="false">
+        				<ux:subSections>
+        					<ux:ObjectPageSubSection title="" showTitle="false">
+        						<ux:blocks>
+        						    <l:VerticalLayout width="100%" >
+        						        <List items="{path: 'page>/Stages', sorter: { path: 'order' }}" visible="{page>/Member}">
+        						            <headerToolbar>
+        						                <Toolbar>
+        						                    <Title text="Stages"/>
+        						                    <ToolbarSpacer/>
+        						                </Toolbar>
+        						            </headerToolbar>
+        						            <items>
+                                				<DisplayListItem
+                                					label="{page>name}" value="{page>order}" type="Navigation" press="navStage"/>
+        						            </items>
+        						        </List>
+                            			<MessageStrip
+                            			    visible="{= !${page>/Member}}"
+                            				text="Not a project member. Stages info is not allowed"
+                            				showIcon="true"
+                            				showCloseButton="false"
+                            				class="sapUiSmallMarginBottom"/>
+                                	</l:VerticalLayout>
+        						</ux:blocks>
+        					</ux:ObjectPageSubSection>
+        					<ux:ObjectPageSubSection title="" showTitle="false">
+        						<ux:blocks>
+        						    <l:VerticalLayout width="100%" >
+        						        <List items="{page>/Project/members}">
+        						            <headerToolbar>
+        						                <Toolbar>
+        						                    <Title text="Members"/>
+        						                    <ToolbarSpacer/>
+        						                </Toolbar>
+        						            </headerToolbar>
+        						            <items>
+                                				<DisplayListItem
+                                					label="{page>user/firstName} {page>user/lastName}"
+                                					value="{page>role/name}" type="Navigation" press="navUser"/>
+        						            </items>
+        						        </List>
+                                	</l:VerticalLayout>
+        						</ux:blocks>
+        					</ux:ObjectPageSubSection>
+        					<ux:ObjectPageSubSection title="" showTitle="false">
+        						<ux:blocks>
+        						    <l:VerticalLayout width="100%" >
+        						        <List items="{path: 'page>/Log', sorter: { path: 'date' }}" visible="{page>/Member}">
+        						            <headerToolbar>
+        						                <Toolbar>
+        						                    <Title text="Log"/>
+        						                    <ToolbarSpacer/>
+        						                </Toolbar>
+        						            </headerToolbar>
+        						            <items>
+                                				<DisplayListItem label="{page>type/name}" value="{page>date}"/>
+        						            </items>
+        						        </List>
+                            			<MessageStrip
+                            			    visible="{= !${page>/Member}}"
+                            				text="Not a project member. Log is not allowed"
+                            				showIcon="true"
+                            				showCloseButton="false"
+                            				class="sapUiSmallMarginBottom"/>
+                                	</l:VerticalLayout>
+        						</ux:blocks>
+        					</ux:ObjectPageSubSection>
+        				</ux:subSections>
+        			</ux:ObjectPageSection>
+        		</ux:sections>
+		    </ux:ObjectPageLayout>
+		    
+		</s:content>
+	</s:DetailPage>
+</mvc:View>

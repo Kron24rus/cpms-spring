@@ -1,0 +1,46 @@
+<mvc:View controllerName="dt.cpms.controller.Stage" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:s="sap.m.semantic" busyIndicatorDelay="100" xmlns:ux="sap.uxap">
+	<s:DetailPage title="Stage View" showNavButton="true" navButtonPress="onNavBack" showFooter="true">
+	    <s:customHeaderContent>
+	        <Button icon="sap-icon://home" visible="{device>/system/phone}" press="navHome"/>
+	    </s:customHeaderContent>
+	    <s:content>
+	        <ux:ObjectPageLayout>
+		        <ux:headerTitle>
+		            <ux:ObjectPageHeader headerDesign="Light" objectTitle="{page>/Stage/name}"/>
+		        </ux:headerTitle>
+        		<ux:headerContent>
+        			<l:VerticalLayout>
+        			    <ObjectStatus title="Project" text="{page>/Stage/project/name}" active="true" press="navProject"/>
+        			</l:VerticalLayout>
+        		</ux:headerContent>
+        		
+        		<ux:sections>
+        			<ux:ObjectPageSection title="" showTitle="false">
+        				<ux:subSections>
+        					<ux:ObjectPageSubSection title="" showTitle="false">
+        						<ux:blocks>
+        						    <l:VerticalLayout width="100%" >
+        						        <List items="{page>/Stage/users}">
+        						            <headerToolbar>
+        						                <Toolbar>
+        						                    <Title text="Assignees"/>
+        						                    <ToolbarSpacer/>
+        						                </Toolbar>
+        						            </headerToolbar>
+        						            <items>
+												<DisplayListItem
+													label="{page>firstName} {page>lastName}" type="Navigation" press="navUser"/>
+        						            </items>
+        						        </List>
+                                	</l:VerticalLayout>
+        						</ux:blocks>
+        					</ux:ObjectPageSubSection>
+        				</ux:subSections>
+        			</ux:ObjectPageSection>
+        		</ux:sections>
+		    </ux:ObjectPageLayout>
+		    
+		</s:content>
+	</s:DetailPage>
+</mvc:View>

@@ -1,0 +1,17 @@
+<mvc:View controllerName="dt.cpms.controller.Messages" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:s="sap.m.semantic" busyIndicatorDelay="100">
+	<s:DetailPage title="Inbox" showNavButton="{device>/system/phone}" navButtonPress="onNavBack" showFooter="false">
+	    <s:customHeaderContent>
+	        <Button icon="sap-icon://home" visible="{device>/system/phone}" press="navHome"/>
+	    </s:customHeaderContent>
+	    <s:content>
+    		<List items="{data>/Messages}">
+    		    <items>
+        			<NotificationListItem title="{data>author/firstName} {data>author/lastName}" description="{data>content}" showCloseButton="false"
+        					datetime="{data>creationDate}" unread="{data>unread}" priority="None"
+        					authorName="" authorPicture="sap-icon://paper-plane"/>
+    			</items>
+    		</List>
+		</s:content>
+	</s:DetailPage>
+</mvc:View>

@@ -1,0 +1,18 @@
+<mvc:View controllerName="dt.cpms.controller.Master" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:s="sap.m.semantic">
+	
+	<s:MasterPage title="CPMS{= ${user>/isAdmin} ? ' Admin' : '' }" >
+	    <s:customHeaderContent>
+	        <Button text="Me" press="navMy"/>
+	        <Button text="Logout" press="logout"/>
+	    </s:customHeaderContent>
+		<s:content>
+		    <List mode="{= ${device>/system/phone} ? 'None' : 'None'}" selectionChange="onNavigate">
+		        <items>
+					<StandardListItem type="Navigation" title="Projects" press="navProjects"/>
+					<StandardListItem type="Navigation" title="Messages" press="navMessages"/>
+				</items>
+		    </List>
+		</s:content>
+	</s:MasterPage>
+</mvc:View>
