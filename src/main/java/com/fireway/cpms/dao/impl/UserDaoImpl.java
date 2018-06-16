@@ -14,7 +14,11 @@ import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
@@ -70,9 +74,31 @@ public class UserDaoImpl implements UserDAO {
         return user;
     }
 
+//    @Override
+//    public User getByLogin(String login) throws DataAccessException {
+//        return getEntityWithRestrictions(Restrictions.eq("login", login));
+//    }
+
+
     @Override
     public User getByLogin(String login) throws DataAccessException {
-        return getEntityWithRestrictions(Restrictions.eq("login", login));
+        User user;
+        try {
+            HibernateUtil.beginTransaction();
+            CriteriaBuilder builder = HibernateUtil.getSession().getCriteriaBuilder();
+            CriteriaQuery query = builder.createQuery(User.class);
+            Root root = query.from(User.class);
+            query.select(root).where(builder.equal(root.get("login"), login));
+            user = (User) HibernateUtil.getSession().createQuery(query).uniqueResult();
+            HibernateUtil.commit();
+        } catch (HibernateException e) {
+            LOG.error(e);
+            HibernateUtil.rollback();
+            throw new DataAccessException(e.getMessage());
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return user;
     }
 
     @Override

@@ -8,24 +8,55 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "User", schema = "", catalog = "dream_team_cpms")
+@Table
 public class User implements Serializable {
-    private int id;
-    private String login;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String middleName;
-    private boolean isAdmin;
-
-    private EmployeeInfo info;
-    private Set<Message> receivedMessages = new HashSet<>(0);
-    private Set<ProjectStage> projectStagesAssigned = new HashSet<>(0);
-    private Set<UserToProject> userToProjects = new HashSet<>(0);
-
     @Id
     @GeneratedValue
     @Column(name = "Id", nullable = false, insertable = true, updatable = false)
+    private int id;
+    @Basic
+    @Column(name = "Login", nullable = false, unique = true, length = 255)
+    private String login;
+
+    @Basic
+    @Column(name = "Password", nullable = false, length = 255)
+    private String password;
+
+    @Basic
+    @Column(name = "FirstName", nullable = false, length = 32)
+    private String firstName;
+
+    @Basic
+    @Column(name = "LastName", nullable = false, length = 32)
+    private String lastName;
+
+    @Basic
+    @Column(name = "MiddleName", length = 32)
+    private String middleName;
+
+    @Basic
+    @Column(name = "IsAdmin", nullable = false, columnDefinition = "int")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean isAdmin;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "EmployeeInfoId")
+    private EmployeeInfo info;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "target", cascade = CascadeType.ALL)
+    private Set<Message> receivedMessages = new HashSet<>(0);
+
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = ProjectStage.class, cascade = CascadeType.ALL)
+    @JoinTable(name = "UserToProjectStage", joinColumns = {
+            @JoinColumn(name = "UserId", nullable = false, updatable = false)
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "ProjectStageId", nullable = false, updatable = false)
+    })
+    private Set<ProjectStage> projectStagesAssigned = new HashSet<>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserToProject> userToProjects = new HashSet<>(0);
+
     public int getId() {
         return id;
     }
@@ -34,8 +65,6 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "Login", nullable = false, unique = true, length = 255)
     public String getLogin() {
         return login;
     }
@@ -44,8 +73,6 @@ public class User implements Serializable {
         this.login = login;
     }
 
-    @Basic
-    @Column(name = "Password", nullable = false, length = 255)
     public String getPassword() {
         return password;
     }
@@ -54,8 +81,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "FirstName", nullable = false, length = 32)
     public String getFirstName() {
         return firstName;
     }
@@ -64,8 +89,6 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
-    @Basic
-    @Column(name = "LastName", nullable = false, length = 32)
     public String getLastName() {
         return lastName;
     }
@@ -73,9 +96,6 @@ public class User implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    @Basic
-    @Column(name = "MiddleName", length = 32)
     public String getMiddleName() {
         return middleName;
     }
@@ -83,10 +103,6 @@ public class User implements Serializable {
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
-
-    @Basic
-    @Column(name = "IsAdmin", nullable = false, columnDefinition = "int")
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -95,8 +111,6 @@ public class User implements Serializable {
         isAdmin = admin;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "EmployeeInfoId")
     public EmployeeInfo getInfo() {
         return info;
     }
@@ -104,8 +118,6 @@ public class User implements Serializable {
     public void setInfo(EmployeeInfo info) {
         this.info = info;
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "target", cascade = CascadeType.ALL)
     public Set<Message> getReceivedMessages() {
         return receivedMessages;
     }
@@ -113,13 +125,6 @@ public class User implements Serializable {
     public void setReceivedMessages(Set<Message> receivedMessages) {
         this.receivedMessages = receivedMessages;
     }
-
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = ProjectStage.class, cascade = CascadeType.ALL)
-    @JoinTable(name = "UserToProjectStage", joinColumns = {
-            @JoinColumn(name = "UserId", nullable = false, updatable = false)
-    }, inverseJoinColumns = {
-            @JoinColumn(name = "ProjectStageId", nullable = false, updatable = false)
-    })
     public Set<ProjectStage> getProjectStagesAssigned() {
         return projectStagesAssigned;
     }
@@ -128,7 +133,6 @@ public class User implements Serializable {
         this.projectStagesAssigned = projectStagesAssigned;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     public Set<UserToProject> getUserToProjects() {
         return userToProjects;
     }
