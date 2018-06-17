@@ -11,6 +11,8 @@
 
         <property name="hibernate.connection.username">cpms_admin</property>
         <property name="hibernate.connection.password">Dq81la+23Ez_0w</property>
+
+        <property name="hibernate.id.new_generator_mappings">false</property>
         
         <!-- <property name="show_sql">true</property> -->
 
