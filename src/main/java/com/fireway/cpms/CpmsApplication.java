@@ -23,11 +23,6 @@ public class CpmsApplication {
 	@Autowired
 	private Environment env;
 
-//	@RequestMapping("/")
-//	String home() {
-//		return "Hello World!";
-//	}
-
 //	@Bean
 //	public FilterRegistrationBean securityFilterChainRegistration() {
 //		DelegatingFilterProxy delegatingFilterProxy = new DelegatingFilterProxy();
