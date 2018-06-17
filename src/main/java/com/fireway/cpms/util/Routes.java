@@ -11,4 +11,5 @@ public class Routes {
     public static String PROJECTS_JSP = "/Projects.jsp";
 
     public static String INDEX_HTML = "/index.html";
+    public static String LOGIN_HTML = "/login.html";
 }

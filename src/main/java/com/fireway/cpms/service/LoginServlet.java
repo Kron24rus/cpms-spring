@@ -45,12 +45,12 @@ public class LoginServlet extends HttpServlet {
             }
         }
         request.setAttribute("error", true);
-        request.getRequestDispatcher(Routes.LOGIN_JSP).forward(request, response);
+        request.getRequestDispatcher(Routes.LOGIN_HTML).forward(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher(Routes.LOGIN_JSP).forward(request, response);
+        request.getRequestDispatcher(Routes.LOGIN_HTML).forward(request, response);
     }
 }
