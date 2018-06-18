@@ -1,6 +1,8 @@
 package com.fireway.cpms.bpmn.dto;
 
-public class ProjectRequestDTO {
+import java.io.Serializable;
+
+public class ProjectRequestDTO implements Serializable {
     private String name;
     private String description;
     private Integer priority;

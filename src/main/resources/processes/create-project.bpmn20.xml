@@ -4,19 +4,19 @@
     <startEvent id="startevent1" name="Start"/>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"/>
 
-    <serviceTask id="servicetask1" name="Validate data and check conflicts" activiti:delegateExpression="com.fireway.cpms.bpmn.service.ValidateProjectServiceTask"/>
+    <serviceTask id="servicetask1" name="Validate data and check conflicts" activiti:delegateExpression="${validateProjectServiceTask}"/>
     <sequenceFlow id="flow6" sourceRef="servicetask1" targetRef="exclusivegateway1"/>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"/>
 
     <sequenceFlow id="flow7" name="valid == true" sourceRef="exclusivegateway1" targetRef="servicetask2"/>
-    <serviceTask id="servicetask2" name="Create project in system" activiti:delegateExpression="com.fireway.cpms.bpmn.service.CreateProjectServiceTask"/>
+    <serviceTask id="servicetask2" name="Create project in system" activiti:delegateExpression="${createProjectServiceTask}"/>
     <sequenceFlow id="flow10" sourceRef="servicetask2" targetRef="servicetask4"/>
 
-    <serviceTask id="servicetask4" name="Notify success" activiti:delegateExpression="com.fireway.cpms.bpmn.service.NotifySuccessServiceTask"/>
+    <serviceTask id="servicetask4" name="Notify success" activiti:delegateExpression="${notifySuccessServiceTask}"/>
     <sequenceFlow id="flow11" sourceRef="servicetask4" targetRef="endevent1"/>
 
     <sequenceFlow id="flow8" name="valid != true" sourceRef="exclusivegateway1" targetRef="servicetask3"/>
-    <serviceTask id="servicetask3" name="Notify failure" activiti:delegateExpression="com.fireway.cpms.bpmn.service.NotifyFailureServiceTask"/>
+    <serviceTask id="servicetask3" name="Notify failure" activiti:delegateExpression="${notifyFailureServiceTask}"/>
     <sequenceFlow id="flow9" sourceRef="servicetask3" targetRef="endevent1"/>
 
     <endEvent id="endevent1" name="End"/>

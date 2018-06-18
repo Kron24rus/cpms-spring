@@ -5,9 +5,10 @@ import com.fireway.cpms.model.Project;
 import com.fireway.cpms.model.ProjectType;
 import org.hibernate.Hibernate;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ProjectDTO {
+public class ProjectDTO implements Serializable {
     private int id;
     private String name;
     private String description;
