@@ -25,6 +25,12 @@ sap.ui.define([
 	    "4": {"id":4,"date":"28.05.2018 00:35:31","newValue":"Google","type":{"id":10,"slug":"newdepl","name":"Deployment created"},"author":{"id":1,"login":"admin","firstName":"Ivan","lastName":"Ivanov","isAdmin":true,"ownUser":false}}
 	};
 	
+	var TYPES = {
+	    "1": {"id":1,"slug":"waterfall","name":"Waterfall"}, 
+	    "2": {"id":2,"slug":"scrum","name":"Scrum"},
+	    "3": {"id":3,"slug":"kanban","name":"Kanban"} 
+	};
+	
 	var fnParse = function(sBody) {
         var aItems = sBody.split("&");
         var oData = {};
@@ -66,6 +72,15 @@ sap.ui.define([
                     };
                 }
                 oXhr.respondJSON(200, {}, JSON.stringify(oResponse));
+                return true;
+            }
+        },
+        {
+            method: "POST",
+            path: /project[\/]?\??(.*)/,
+            response: function(oXhr, sUrlParams) {
+                console.log(oXhr.requestBody, sUrlParams);
+                oXhr.respondJSON(200, {}, "{}");
                 return true;
             }
         },
@@ -118,6 +133,21 @@ sap.ui.define([
                     oResponse = LOG[Number(oBody.id)] || {};
                 } else if (oBody.project) {
                     oResponse = LOG;
+                } 
+                oXhr.respondJSON(200, {}, JSON.stringify(oResponse));
+                return true;
+            }
+        },
+        {
+            method: "GET",
+            path: /type[\/]?\??(.*)/,
+            response: function(oXhr, sUrlParams) {
+                var oBody = fnParse(sUrlParams || "");
+                var oResponse = {};
+                if (oBody.id) {
+                    oResponse = TYPES[Number(oBody.id)] || {};
+                } else {
+                    oResponse = TYPES;
                 } 
                 oXhr.respondJSON(200, {}, JSON.stringify(oResponse));
                 return true;

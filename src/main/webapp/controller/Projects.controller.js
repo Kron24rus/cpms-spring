@@ -1,18 +1,28 @@
 sap.ui.define([
     "dt/cpms/controller/BaseController",
     "dt/cpms/components/APICaller",
-    "dt/cpms/model/Formatter"
-], function (BaseController, APICaller, Formatter) {
+    "dt/cpms/model/Formatter",
+    
+    "dt/cpms/controller/dialog/CreateProject"
+], function (BaseController, APICaller, Formatter,
+    CreateProjectDialog) {
     
     return BaseController.extend("dt.cpms.controller.Projects", {
         formatter: Formatter,
         
         onInit: function() {
             this._oCaller = new APICaller({
-                baseUrl: "./"
+                baseUrl: "../"
             });
-            
+            this.setModel(new sap.ui.model.json.JSONModel({}), "dialog");
             this.getRouter().getRoute("projects").attachPatternMatched(this.initProjects.bind(this));
+        },
+        
+        onCreate: function() {
+            if (!this._oCreateDialog) {
+                this._oCreateDialog = new CreateProjectDialog(this.getView(), this.getModel("dialog"), this._oCaller);
+            }
+            this._oCreateDialog.open();
         },
         
         initProjects: function() {

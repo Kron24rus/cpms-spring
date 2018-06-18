@@ -9,7 +9,7 @@ sap.ui.define([
         
         onInit: function() {
             this._oCaller = new APICaller({
-                baseUrl: "./"
+                baseUrl: "../"
             });
         },
         

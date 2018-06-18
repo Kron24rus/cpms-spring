@@ -20,7 +20,7 @@ public class ActivitiController {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping(value = "/project", produces = "application/json")
+    @PostMapping(value = "/activiti/project", produces = "application/json")
     public Object createProject(@RequestBody ProjectRequestDTO projectDTO) {
         ProcessInstance processInstance =
                 runtimeService.startProcessInstanceByKey("myProcess", ImmutableMap.of("projectDTO", projectDTO));

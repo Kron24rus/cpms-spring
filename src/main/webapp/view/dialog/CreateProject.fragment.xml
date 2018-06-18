@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog title="Create Project">
+	    <content>
+	        <f:SimpleForm>
+	            <Label text="Name" required="true"/>
+	            <Input value="{dialog>Project/Name}" change="validate"/>
+	            <Label text="Description"/>
+	            <Input value="{dialog>Project/Description}"/>
+	            <Label text="Priority" required="true"/>
+	            <Select
+	                showSecondaryValues= "true"
+	                change="validate"
+					forceSelection="false"
+					selectedKey="{dialog>Project/Priority}">
+					<core:ListItem key="1" text="High" additionalText="1"/>
+					<core:ListItem key="2" text="Medium" additionalText="2"/>
+					<core:ListItem key="3" text="Low" additionalText="3"/>
+				</Select>
+	            <Label text="Type" required="true"/>
+	            <Select
+	                showSecondaryValues= "true"
+	                change="validate"
+					forceSelection="false"
+					selectedKey="{dialog>Project/Type}"
+					items="{dialog>Types}">
+					<core:ListItem key="{dialog>id}" text="{dialog>name}" additionalText="{dialog>id}" />
+				</Select>
+	        </f:SimpleForm>
+	    </content>
+	    <beginButton>
+	        <Button 
+	            press="create"
+	            text="Create"
+	            enabled="{dialog>Valid}"
+	            type="Default"/>
+	    </beginButton>
+	    <endButton>
+	        <Button text="Close" press="close" type="Reject"/>
+	    </endButton>
+	</Dialog>
+</core:FragmentDefinition>

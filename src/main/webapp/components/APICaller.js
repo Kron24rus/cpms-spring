@@ -105,6 +105,22 @@ sap.ui.define([
             type: "POST"
         });
     };
+    /**
+     * Run a POST Request with given relative URL and JSON data
+     * @param {string} sUrl - relative URL for a request
+     * @param {object} oData - data to send
+     * @returns {object} - Deferred object
+     * @function
+     * @private
+     */
+    APICaller.prototype.doPostJSON = function(sUrl, oData) {
+        return this._promisedRequest(sUrl, {
+            data: JSON.stringify(oData || {}),
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8"
+        });
+    };
     
     /**
      * Run a PUT Request with given relative URL and data

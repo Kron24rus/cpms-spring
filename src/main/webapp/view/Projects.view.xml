@@ -10,7 +10,7 @@
     		        <Toolbar>
     		            <Title text="My Projects ({path: 'data>/Projects/My', formatter: '.formatter.count'})"/>
     		            <ToolbarSpacer/>
-    		            <Button icon="sap-icon://add" tooltip="Create" visible="{user>/isAdmin}"/>
+    		            <Button icon="sap-icon://add" tooltip="Create" visible="{user>/isAdmin}" press="onCreate"/>
     		        </Toolbar>
     		    </headerToolbar>
     		    <items>
