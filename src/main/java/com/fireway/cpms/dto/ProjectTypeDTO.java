@@ -3,7 +3,9 @@ package com.fireway.cpms.dto;
 
 import com.fireway.cpms.model.ProjectType;
 
-public class ProjectTypeDTO {
+import java.io.Serializable;
+
+public class ProjectTypeDTO implements Serializable {
     private int id;
     private String slug;
     private String name;

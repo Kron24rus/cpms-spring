@@ -27,6 +27,7 @@ public class CreateProjectServiceTask implements JavaDelegate {
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
-        delegateExecution.setVariable("responseProject", new ProjectDTO(project));
+        ProjectDTO responseProject = new ProjectDTO(project);
+        delegateExecution.setVariable("responseProject", responseProject);
     }
 }
