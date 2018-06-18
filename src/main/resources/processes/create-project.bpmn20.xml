@@ -8,14 +8,18 @@
     <sequenceFlow id="flow6" sourceRef="servicetask1" targetRef="exclusivegateway1"/>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"/>
 
-    <sequenceFlow id="flow7" name="valid == true" sourceRef="exclusivegateway1" targetRef="servicetask2"/>
+    <sequenceFlow id="flow7" name="valid == true" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression">${valid == true}</conditionExpression>
+    </sequenceFlow>
     <serviceTask id="servicetask2" name="Create project in system" activiti:delegateExpression="${createProjectServiceTask}"/>
     <sequenceFlow id="flow10" sourceRef="servicetask2" targetRef="servicetask4"/>
 
     <serviceTask id="servicetask4" name="Notify success" activiti:delegateExpression="${notifySuccessServiceTask}"/>
     <sequenceFlow id="flow11" sourceRef="servicetask4" targetRef="endevent1"/>
 
-    <sequenceFlow id="flow8" name="valid != true" sourceRef="exclusivegateway1" targetRef="servicetask3"/>
+    <sequenceFlow id="flow8" name="valid != true" sourceRef="exclusivegateway1" targetRef="servicetask3">
+      <conditionExpression xsi:type="tFormalExpression">${valid != true}</conditionExpression>
+    </sequenceFlow>
     <serviceTask id="servicetask3" name="Notify failure" activiti:delegateExpression="${notifyFailureServiceTask}"/>
     <sequenceFlow id="flow9" sourceRef="servicetask3" targetRef="endevent1"/>
 

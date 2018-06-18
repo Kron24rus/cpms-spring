@@ -7,8 +7,9 @@ import com.fireway.cpms.model.User;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 
-public class RequestWrapper {
+public class RequestWrapper implements Serializable {
     private static UserDaoImpl userDao = new UserDaoImpl();
 
     private HttpServletRequest request;

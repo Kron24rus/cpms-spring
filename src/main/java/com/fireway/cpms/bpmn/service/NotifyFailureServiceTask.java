@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 public class NotifyFailureServiceTask implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) {
-
+        String errorMessage = delegateExecution.getVariable("validationMessage", String.class);
+        delegateExecution.setVariable("errorMessage", errorMessage);
     }
 }
