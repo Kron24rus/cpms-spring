@@ -41,8 +41,10 @@ public class ReportServlet extends GenericServlet {
 
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params);
 
-                response.getInnerResponse().setHeader("Content-Disposition", "attachment; filename=\"JReport.pdf\"");
-                response.getInnerResponse().setContentType("application/octet-stream");
+//                response.getInnerResponse().setHeader("Content-Disposition", "attachment; filename=\"JReport.pdf\"");
+//                response.getInnerResponse().setContentType("application/octet-stream");
+
+                response.getInnerResponse().setContentType("application/pdf; charset=utf-8");
                 JasperExportManager.exportReportToPdfStream(jasperPrint, response.getInnerResponse().getOutputStream());
             } catch (JRException e) {
                 e.printStackTrace();

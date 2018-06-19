@@ -71,6 +71,7 @@
         						                <Toolbar>
         						                    <Title text="Log"/>
         						                    <ToolbarSpacer/>
+													<Button icon="sap-icon://manager-insight" text="Report" press="onReport"/>
         						                </Toolbar>
         						            </headerToolbar>
         						            <items>

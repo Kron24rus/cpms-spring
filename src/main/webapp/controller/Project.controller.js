@@ -114,6 +114,10 @@ sap.ui.define([
         navUser: function(oEvent) {
             var iId = oEvent.getSource().getBindingContext("page").getProperty("user/id");
             this.getRouter().navTo("user", {id: iId});
+        },
+
+        onReport: function() {
+            window.open("report?id=" + this._iId, "_blank");
         }
     });
 });

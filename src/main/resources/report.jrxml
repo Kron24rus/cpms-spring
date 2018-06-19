@@ -1,16 +1,111 @@
 <jasperReport name="ReportName">
     <parameter name="projectId" class="java.lang.Integer"/>
     <queryString language="hql">
-        <![CDATA[FROM ProjectLog Log]]>
+        <![CDATA[FROM ProjectLog as Log LEFT JOIN FETCH Log.logType Type LEFT JOIN FETCH Log.author Author WHERE Log.projectId = $P{projectId} ORDER BY Log.date desc]]>
     </queryString>
+    <field name="logType.name" class="java.lang.String"/>
     <field name="newValue" class="java.lang.String"/>
+    <field name="date" class="java.sql.Timestamp"/>
+    <field name="author.firstName" class="java.lang.String"/>
+    <field name="author.lastName" class="java.lang.String"/>
+    <columnHeader>
+        <band height = "23">
+            <staticText>
+                <reportElement mode = "Opaque" x = "0" y = "3" width = "150"
+                               height = "15" backcolor = "#70A9A9" />
+
+                <box>
+                    <bottomPen lineWidth = "1.0" lineColor = "#CCCCCC" />
+                </box>
+
+                <textElement />
+                <text><![CDATA[Type]]> </text>
+            </staticText>
+
+            <staticText>
+                <reportElement mode = "Opaque"  x = "150" y = "3" width = "100" height = "15"  backcolor = "#70A9A9" />
+
+                <box>
+                    <bottomPen lineWidth = "1.0" lineColor = "#CCCCCC" />
+                </box>
+                <textElement textAlignment = "Center" verticalAlignment = "Middle">
+                    <font isBold = "true" />
+                </textElement>
+
+                <text><![CDATA[New Value]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement mode = "Opaque"  x = "250" y = "3" width = "50" height = "15"  backcolor = "#70A9A9" />
+
+                <box>
+                    <bottomPen lineWidth = "1.0" lineColor = "#CCCCCC" />
+                </box>
+                <textElement textAlignment = "Center" verticalAlignment = "Middle">
+                    <font isBold = "true" />
+                </textElement>
+
+                <text><![CDATA[Author]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode = "Opaque"  x = "300" y = "3" width = "50" height = "15"  backcolor = "#70A9A9" />
+
+                <box>
+                    <bottomPen lineWidth = "1.0" lineColor = "#CCCCCC" />
+                </box>
+                <textElement textAlignment = "Center" verticalAlignment = "Middle">
+                    <font isBold = "true" />
+                </textElement>
+
+                <text><![CDATA[]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement mode = "Opaque"  x = "350" y = "3" width = "100" height = "15" backcolor = "#70A9A9"  />
+
+                <box>
+                    <bottomPen lineWidth = "1.0" lineColor = "#CCCCCC" />
+                </box>
+                <textElement textAlignment = "Center" verticalAlignment = "Middle">
+                    <font isBold = "true" />
+                </textElement>
+
+                <text><![CDATA[Date]]></text>
+            </staticText>
+
+        </band>
+    </columnHeader>
     <detail>
         <band height="20">
             <textField>
-                <reportElement x="0" y="0" width="156" height="20"/>
+                <reportElement x="0" y="0" width="150" height="20"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.String">
+                    <![CDATA[$F{logType.name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="150" y="0" width="100" height="20"/>
                 <textElement/>
                 <textFieldExpression class="java.lang.String">
                     <![CDATA[$F{newValue}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="250" y="0" width="50" height="20"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.String">
+                    <![CDATA[$F{author.lastName}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="300" y="0" width="50" height="20"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.String">
+                    <![CDATA[$F{author.firstName}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="350" y="0" width="100" height="20"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.String">
+                    <![CDATA[$F{date}]]></textFieldExpression>
             </textField>
         </band>
     </detail>
