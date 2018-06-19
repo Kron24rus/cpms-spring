@@ -1,6 +1,6 @@
 <mvc:View controllerName="dt.cpms.controller.Projects" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:s="sap.m.semantic" busyIndicatorDelay="100" >
-	<s:DetailPage title="Project List" showNavButton="{device>/system/phone}" navButtonPress="onNavBack" showFooter="false">
+	<s:DetailPage title="Project List" showNavButton="{device>/system/phone}" navButtonPress="onNavBack">
 	    <s:customHeaderContent>
 	        <Button icon="sap-icon://home" visible="{device>/system/phone}" press="navHome"/>
 	    </s:customHeaderContent>
@@ -9,8 +9,6 @@
     		    <headerToolbar>
     		        <Toolbar>
     		            <Title text="My Projects ({path: 'data>/Projects/My', formatter: '.formatter.count'})"/>
-    		            <ToolbarSpacer/>
-    		            <Button icon="sap-icon://add" tooltip="Create" visible="{user>/isAdmin}" press="onCreate"/>
     		        </Toolbar>
     		    </headerToolbar>
     		    <items>
@@ -30,8 +28,6 @@
     		    <headerToolbar>
     		        <Toolbar>
     		            <Title text="All Projects ({path: 'data>/Projects/All', formatter: '.formatter.count'})"/>
-    		            <ToolbarSpacer/>
-    		            <Button icon="sap-icon://add" tooltip="Create" visible="{user>/isAdmin}"/>
     		        </Toolbar>
     		    </headerToolbar>
     		    <items>
@@ -48,5 +44,10 @@
     		    </items>
     		</List>
 		</s:content>
+
+		<s:customFooterContent>
+			<Button icon="sap-icon://add" text="Create" visible="{user>/isAdmin}" press="onCreate"/>
+			<Button icon="sap-icon://refresh" text="Refresh" press="initProjects"/>
+		</s:customFooterContent>
 	</s:DetailPage>
 </mvc:View>

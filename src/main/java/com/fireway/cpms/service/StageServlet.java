@@ -59,12 +59,12 @@ public class StageServlet extends GenericServlet{
         stage.setProject(project);
         stage.setTemplate(template);
         if (start != null) {
-            stage.setStartDate(DataUtils.parseDate(start));
+            stage.setStartDate(DataUtils.parseTimestamp(start));
         } else {
             stage.setStartDate(null);
         }
         if (end != null) {
-            stage.setEndDate(DataUtils.parseDate(end));
+            stage.setEndDate(DataUtils.parseTimestamp(end));
         }
 
         stageDao.create(stage);
@@ -112,10 +112,10 @@ public class StageServlet extends GenericServlet{
             stage.setOrder(order);
         }
         if (start != null) {
-            stage.setStartDate(DataUtils.parseDate(start));
+            stage.setStartDate(DataUtils.parseTimestamp(start));
         }
         if (end != null) {
-            stage.setEndDate(DataUtils.parseDate(end));
+            stage.setEndDate(DataUtils.parseTimestamp(end));
         }
 
         stageDao.update(stage);

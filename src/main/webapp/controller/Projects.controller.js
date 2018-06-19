@@ -32,6 +32,7 @@ sap.ui.define([
                     var oModel = this.getModel("data");
                     oModel.setProperty("/Projects/My", oData.my);
                     oModel.setProperty("/Projects/All", oData.all);
+                    sap.m.MessageToast.show("Project list updated", {duration: 500});
                 }.bind(this))
                 .always(function() {
                     this.getView().setBusy(false);

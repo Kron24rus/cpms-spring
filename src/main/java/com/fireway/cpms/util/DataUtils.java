@@ -18,9 +18,17 @@ public class DataUtils {
         return STANDARD_DATE_FORMAT.format(date);
     }
 
-    public static Timestamp parseDate(String date) throws BadRequestException {
+    public static Timestamp parseTimestamp(String date) throws BadRequestException {
         try {
             return (Timestamp) STANDARD_DATE_FORMAT.parse(date);
+        } catch (ParseException e) {
+            throw new BadRequestException(e.getMessage(), e);
+        }
+    }
+
+    public static Date parseDate(String date) throws BadRequestException {
+        try {
+            return STANDARD_DATE_FORMAT.parse(date);
         } catch (ParseException e) {
             throw new BadRequestException(e.getMessage(), e);
         }

@@ -16,17 +16,30 @@ sap.ui.define([
                 Priority: null,
                 Type: null
             },
+            Exists: false,
             Types: {},
+            Projects: [],
             Valid: false
         });
         this.setBusy(true);
-        this._oAPICaller.doGet("type")
+
+        var oTypeLoad = this._oAPICaller.doGet("type")
             .then(function(oData) {
                 this._setDialogProperty("/Types", oData);
-            }.bind(this), function(oXhr) {
-                sap.m.MessageToast.show(oXhr.responseText);
-            }).always(this.setBusy.bind(this, false));
+            }.bind(this), this._showError);
+        var oProjectLoad = this._oAPICaller.doGet("project")
+            .then(function(oData) {
+                var aNames = oData.all || [];
+                aNames = aNames.map(function (value) {
+                    return value.name;
+                });
+                this._setDialogProperty("/Projects", aNames);
+            }.bind(this), this._showError);
+
+        jQuery.when(oTypeLoad, oProjectLoad).always(this.setBusy.bind(this, false));
     };
+
+
 
     CreateProjectDialog.prototype.create = function() {
     	var oProject = this._getDialogProperty("/Project");
@@ -41,15 +54,23 @@ sap.ui.define([
                 this.close();
                 this.getParentController().initProjects();
             }.bind(this))
-            .fail(function(oXhr) {
-                var sText = oXhr.responseText;
-                sap.m.MessageToast.show(sText && sText.split("\n").shift());
-            }).always(this.setBusy.bind(this, false));
+            .fail(this._showError)
+            .always(this.setBusy.bind(this, false));
     };
 
     CreateProjectDialog.prototype.validate = function() {
-        var oProject = this._getDialogProperty("/Project");
-        this._setDialogProperty("/Valid", Boolean(oProject.Name && oProject.Type && oProject.Priority));
+        var oProject = this._getDialogProperty("/Project"),
+            aProjects = this._getDialogProperty("/Projects"),
+            bValid = oProject.Name && oProject.Type && oProject.Priority,
+            bExists = false;
+
+        if (aProjects.includes(oProject.Name)) {
+            bValid = false;
+            bExists = true;
+        }
+
+        this._setDialogProperty("/Valid", Boolean(bValid));
+        this._setDialogProperty("/Exists", Boolean(bExists));
     };
 
     return CreateProjectDialog;

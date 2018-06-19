@@ -3,7 +3,8 @@
 	    <content>
 	        <f:SimpleForm>
 	            <Label text="Name" required="true"/>
-	            <Input value="{dialog>Project/Name}" change="validate"/>
+	            <Input value="{dialog>Project/Name}" change="validate"
+					   valueState="{= ${dialog>Exists} ? 'Error' : 'None'}" valueStateText="Already exists"/>
 	            <Label text="Description"/>
 	            <Input value="{dialog>Project/Description}"/>
 	            <Label text="Priority" required="true"/>

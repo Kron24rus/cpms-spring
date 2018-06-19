@@ -32,6 +32,10 @@ sap.ui.define([
         }
         return this._oDialog;
     };
+
+    BaseDialogController.prototype._showError = function(oXhr) {
+        sap.m.MessageToast.show(oXhr.responseText && oXhr.responseText.split("\n").shift());
+    };
     
     BaseDialogController.prototype._getDialogProperty = function(sProperty) {
         return this._oDialogModel.getProperty("/" + this._sDialogName + sProperty);

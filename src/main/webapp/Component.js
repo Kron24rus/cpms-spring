@@ -19,33 +19,39 @@ sap.ui.define([
 		 * @override
 		 */
 		init: function() {
+            var oUserModel = new JSONModel();
 		    this._oCaller = new APICaller({
 		        baseUrl: "./"
 		    });
+
+            this._oCaller
+                .doGet("user", {id: 0})
+                .then(function(oUser) {
+                    oUserModel.setData(oUser);
+                    if (oUser.isAdmin) {
+                        sap.ui.getCore().applyTheme("sap_belize_plus");
+                    } else {
+                        sap.ui.getCore().applyTheme("sap_belize");
+                    }
+                }).fail(function() {
+                	window.location.href = "/login";
+            	});
+
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
 
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
-			this.setModel(new JSONModel(), "user");
+			this.setModel(oUserModel, "user");
 			this.setModel(models.createUiModel(), "ui");
 			this.setModel(models.createDataModel(), "data");
-			
-			var oUserModel = this.getModel("user");
-			this._oCaller
-			    .doGet("user", {id: 0})
-			    .then(function(oUser) {
-			        oUserModel.setData(oUser);
-			        if (oUser.isAdmin) {
-			            sap.ui.getCore().applyTheme("sap_belize_plus");
-			        } else {
-			            sap.ui.getCore().applyTheme("sap_belize");
-			        }
-			    });
-			    
-			
+
 			this.getRouter().initialize();
-			this.getRouter().navTo("master", {});
+			if (!this.getModel("device").getProperty("/system/phone")) {
+                this.getRouter().navTo("projects", {});
+			} else {
+                this.getRouter().navTo("master", {});
+			}
 		}
 	});
 });
