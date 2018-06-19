@@ -1,0 +1,17 @@
+<jasperReport name="ReportName">
+    <parameter name="projectId" class="java.lang.Integer"/>
+    <queryString language="hql">
+        <![CDATA[FROM ProjectLog Log]]>
+    </queryString>
+    <field name="newValue" class="java.lang.String"/>
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="156" height="20"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.String">
+                    <![CDATA[$F{newValue}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>
