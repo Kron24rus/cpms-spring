@@ -4,6 +4,7 @@
         <![CDATA[FROM ProjectLog as Log LEFT JOIN FETCH Log.logType Type LEFT JOIN FETCH Log.author Author WHERE Log.projectId = $P{projectId} ORDER BY Log.date desc]]>
     </queryString>
     <field name="logType.name" class="java.lang.String"/>
+    <field name="oldValue" class="java.lang.String"/>
     <field name="newValue" class="java.lang.String"/>
     <field name="date" class="java.sql.Timestamp"/>
     <field name="author.firstName" class="java.lang.String"/>
@@ -32,11 +33,24 @@
                     <font isBold = "true" />
                 </textElement>
 
+                <text><![CDATA[Old Value]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement mode = "Opaque"  x = "250" y = "3" width = "100" height = "15"  backcolor = "#70A9A9" />
+
+                <box>
+                    <bottomPen lineWidth = "1.0" lineColor = "#CCCCCC" />
+                </box>
+                <textElement textAlignment = "Center" verticalAlignment = "Middle">
+                    <font isBold = "true" />
+                </textElement>
+
                 <text><![CDATA[New Value]]></text>
             </staticText>
 
             <staticText>
-                <reportElement mode = "Opaque"  x = "250" y = "3" width = "50" height = "15"  backcolor = "#70A9A9" />
+                <reportElement mode = "Opaque"  x = "350" y = "3" width = "50" height = "15"  backcolor = "#70A9A9" />
 
                 <box>
                     <bottomPen lineWidth = "1.0" lineColor = "#CCCCCC" />
@@ -48,7 +62,7 @@
                 <text><![CDATA[Author]]></text>
             </staticText>
             <staticText>
-                <reportElement mode = "Opaque"  x = "300" y = "3" width = "50" height = "15"  backcolor = "#70A9A9" />
+                <reportElement mode = "Opaque"  x = "400" y = "3" width = "50" height = "15"  backcolor = "#70A9A9" />
 
                 <box>
                     <bottomPen lineWidth = "1.0" lineColor = "#CCCCCC" />
@@ -61,7 +75,7 @@
             </staticText>
 
             <staticText>
-                <reportElement mode = "Opaque"  x = "350" y = "3" width = "100" height = "15" backcolor = "#70A9A9"  />
+                <reportElement mode = "Opaque"  x = "450" y = "3" width = "100" height = "15" backcolor = "#70A9A9"  />
 
                 <box>
                     <bottomPen lineWidth = "1.0" lineColor = "#CCCCCC" />
@@ -87,22 +101,28 @@
                 <reportElement x="150" y="0" width="100" height="20"/>
                 <textElement/>
                 <textFieldExpression class="java.lang.String">
+                    <![CDATA[$F{oldValue}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="250" y="0" width="100" height="20"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.String">
                     <![CDATA[$F{newValue}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="250" y="0" width="50" height="20"/>
+                <reportElement x="350" y="0" width="50" height="20"/>
                 <textElement/>
                 <textFieldExpression class="java.lang.String">
                     <![CDATA[$F{author.lastName}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="300" y="0" width="50" height="20"/>
+                <reportElement x="400" y="0" width="50" height="20"/>
                 <textElement/>
                 <textFieldExpression class="java.lang.String">
                     <![CDATA[$F{author.firstName}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="350" y="0" width="100" height="20"/>
+                <reportElement x="450" y="0" width="100" height="20"/>
                 <textElement/>
                 <textFieldExpression class="java.lang.String">
                     <![CDATA[$F{date}]]></textFieldExpression>
