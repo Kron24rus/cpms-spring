@@ -23,7 +23,7 @@ public class DialogListDTO {
                 if (!dialogs.containsKey(id)) {
                     dialogs.put(id, new DialogDTO(author));
                 }
-                dialogs.get(id).addEntry(message);
+                dialogs.get(id).checkEntry(message);
             }
         }
     }

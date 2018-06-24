@@ -55,6 +55,18 @@ public class DialogDTO {
         }
     }
 
+    public void checkEntry(Message message) {
+        if (message != null) {
+            DialogEntryDTO entry = new DialogEntryDTO(message);
+            Date date = getDate();
+            if (date == null || date.before(message.getCreationDate())) {
+                this.date = entry.getCreationDate();
+                this.timestamp = entry.getTimestamp();
+                this.text = entry.getContent();
+            }
+        }
+    }
+
     public UserDTO getUser() {
         return user;
     }
