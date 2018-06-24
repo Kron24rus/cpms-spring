@@ -15,6 +15,8 @@ public class DialogDTO {
     private UserDTO user;
     private List<DialogEntryDTO> entries;
     private String timestamp;
+    private String date;
+    private String text;
 
     public DialogDTO() {
     }
@@ -26,9 +28,9 @@ public class DialogDTO {
     }
 
     private Date getDate() {
-        if (this.timestamp != null) {
+        if (this.date != null) {
             try {
-                return DataUtils.parseDate(this.timestamp);
+                return DataUtils.parseDate(this.date);
             } catch (BadRequestException e) {
                 e.printStackTrace();
             }
@@ -45,7 +47,9 @@ public class DialogDTO {
             DialogEntryDTO entry = new DialogEntryDTO(message);
             Date date = getDate();
             if (date == null || date.before(message.getCreationDate())) {
-                this.timestamp = entry.getCreationDate();
+                this.date = entry.getCreationDate();
+                this.timestamp = entry.getTimestamp();
+                this.text = entry.getContent();
             }
             entries.add(new DialogEntryDTO(message));
         }
@@ -73,5 +77,17 @@ public class DialogDTO {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

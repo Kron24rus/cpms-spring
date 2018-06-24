@@ -35,7 +35,9 @@ public class UserServlet extends GenericServlet {
             user = userDao.getWithInfo(userId);
         }
         if (user != null) {
-            return new UserDTO(user);
+            UserDTO userDTO = new UserDTO(user);
+            userDTO.setOwnUser(request.getCurrentUserId() == userDTO.getId());
+            return userDTO;
         } else {
             throw new NotFoundException("User not found");
         }

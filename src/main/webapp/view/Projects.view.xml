@@ -5,7 +5,7 @@
 	        <Button icon="sap-icon://home" visible="{device>/system/phone}" press="navHome"/>
 	    </s:customHeaderContent>
 	    <s:content>
-    		<List items="{data>/Projects/My}">
+    		<List items="{path: 'data>/Projects/My', sorter: {path: 'name'}}">
     		    <headerToolbar>
     		        <Toolbar>
     		            <Title text="My Projects ({path: 'data>/Projects/My', formatter: '.formatter.count'})"/>
@@ -24,7 +24,7 @@
     		        </ObjectListItem>
     		    </items>
     		</List>
-    		<List items="{data>/Projects/All}">
+    		<List items="{path: 'data>/Projects/All', sorter: {path: 'name'}}">
     		    <headerToolbar>
     		        <Toolbar>
     		            <Title text="All Projects ({path: 'data>/Projects/All', formatter: '.formatter.count'})"/>

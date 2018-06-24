@@ -10,6 +10,14 @@ sap.ui.define([
             return aArray && aArray.length || 0;
         },
 
+        dialogIcon: function(iAuthor, iCurrent) {
+            if (iAuthor === iCurrent) {
+                return "sap-icon://outbox";
+            } else {
+                return "sap-icon://customer";
+            }
+        },
+
         priorityName: function(sPriority) {
             var iPrior = Number(sPriority);
             if (iPrior < 2) {

@@ -18,6 +18,10 @@ public class DataUtils {
         return STANDARD_DATE_FORMAT.format(date);
     }
 
+    public static String formatTimestamp(Date date) {
+        return timeStampFormat.format(date);
+    }
+
     public static Timestamp parseTimestamp(String date) throws BadRequestException {
         try {
             return (Timestamp) STANDARD_DATE_FORMAT.parse(date);

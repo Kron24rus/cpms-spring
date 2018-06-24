@@ -29,9 +29,10 @@ sap.ui.define([
         initUser: function(oEvent) {
             var oArgs = oEvent.getParameter("arguments"),
                 iId = Number(oArgs.id || 0);
+            this._iId = iId;
             this.getModel("page").setProperty("/Edit", false);
             this.getView().setBusy(true);
-            this._oCaller.doGet("user", {id: iId})
+            this._oCaller.doGet("user", {id: this._iId})
                 .then(function(oData) {
                     var oModel = this.getModel("page");
                     oData.name = [oData.firstName, oData.lastName].filter(Boolean).join(" ");
@@ -40,6 +41,12 @@ sap.ui.define([
                 .always(function() {
                     this.getView().setBusy(false);
                 }.bind(this));
+        },
+
+        onMessage: function(oEvent) {
+            this.getRouter().navTo("dialog", {
+                id: this._iId
+            });
         }
     });
 });

@@ -5,11 +5,11 @@
 	        <Button icon="sap-icon://home" visible="{device>/system/phone}" press="navHome"/>
 	    </s:customHeaderContent>
 	    <s:content>
-    		<List items="{data>/Messages}">
+    		<List items="{path: 'data>/Messages', sorter: {path: 'timestamp', descending: 'true'}}">
     		    <items>
-        			<NotificationListItem title="{data>author/firstName} {data>author/lastName}" description="{data>content}" showCloseButton="false"
-        					datetime="{data>creationDate}" unread="{data>unread}" priority="None"
-        					authorName="" authorPicture="sap-icon://paper-plane"/>
+        			<NotificationListItem title="{data>user/firstName} {data>user/lastName}" description="{data>text}" showCloseButton="false"
+        					datetime="{data>date}" unread="false" priority="None"
+        					authorName="" authorPicture="sap-icon://paper-plane" type="Navigation" press="onDialogPress"/>
     			</items>
     		</List>
 		</s:content>

@@ -60,4 +60,35 @@ public class MessageDaoImpl implements MessageDAO {
         }
         return resultList;
     }
+
+    public List<Message> getDialog(int targetId, int authorId) throws DataAccessException {
+        List<Message> resultList = null;
+        try {
+            HibernateUtil.beginTransaction();
+            resultList = HibernateUtil.getSession()
+                    .createCriteria(Message.class)
+                    .add(Restrictions.or(
+                            Restrictions.and(
+                                    Restrictions.eq("authorForeignKey", authorId),
+                                    Restrictions.eq("targetForeignKey", targetId)
+                            ),
+                            Restrictions.and(
+                                    Restrictions.eq("authorForeignKey", targetId),
+                                    Restrictions.eq("targetForeignKey", authorId)
+                            )
+                    ))
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                    .list();
+            for (Message message: resultList) {
+                Hibernate.initialize(message.getAuthor());
+            }
+            HibernateUtil.commit();
+        } catch (HibernateException e) {
+            HibernateUtil.rollback();
+            throw new DataAccessException(e.getMessage());
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return resultList;
+    }
 }

@@ -13,7 +13,10 @@ sap.ui.define([
 	            },
 	            Messages: [
 	                
-	            ]
+	            ],
+				Dialog: {
+
+				}
 	        });
 	    },
 

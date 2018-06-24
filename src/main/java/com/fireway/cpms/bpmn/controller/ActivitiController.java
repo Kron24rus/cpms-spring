@@ -2,6 +2,7 @@ package com.fireway.cpms.bpmn.controller;
 
 import com.fireway.cpms.bpmn.dto.ProjectRequestDTO;
 import com.fireway.cpms.exception.DataAccessException;
+import com.fireway.cpms.model.User;
 import com.fireway.cpms.util.RequestWrapper;
 import com.google.common.collect.ImmutableMap;
 import org.activiti.engine.RuntimeService;
@@ -32,8 +33,11 @@ public class ActivitiController {
     @PostMapping(value = "/activiti/project", produces = "application/json")
     public Object createProject(HttpServletRequest req, HttpServletResponse resp, @RequestBody ProjectRequestDTO projectDTO) throws DataAccessException {
         RequestWrapper requestWrapper = new RequestWrapper(req);
+        User user = requestWrapper.getCurrentUser();
         ProcessInstance processInstance =
-                runtimeService.startProcessInstanceByKey("myProcess", ImmutableMap.of("projectDTO", projectDTO, "isAdmin", requestWrapper.isUserAdmin()));
+                runtimeService.startProcessInstanceByKey("myProcess", ImmutableMap.of("projectDTO", projectDTO,
+                        "isAdmin", requestWrapper.isUserAdmin(),
+                        "user", user));
         boolean success = (boolean) ((ExecutionEntityImpl) processInstance).getVariables().get("valid");
         Map<String, Object> processObjects = ((ExecutionEntityImpl) processInstance).getVariables();
         if (success) {

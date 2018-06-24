@@ -7,7 +7,8 @@
 	    <s:content>
 	        <ux:ObjectPageLayout>
 		        <ux:headerTitle>
-		            <ux:ObjectPageHeader headerDesign="Light" objectTitle="{page>/User/name}"/>
+		            <ux:ObjectPageHeader headerDesign="Light" objectTitle="{page>/User/name}">
+					</ux:ObjectPageHeader>
 		        </ux:headerTitle>
         		<ux:headerContent>
         			<l:VerticalLayout>
@@ -50,5 +51,8 @@
 		<s:cancelAction>
 		    <s:CancelAction press="onCancel" visible="{= !!${page>/Edit}}"/>
 		</s:cancelAction>
+		<s:sendMessageAction>
+			<s:SendMessageAction press="onMessage" visible="{= !${page>/User/ownUser}}"/>
+		</s:sendMessageAction>
 	</s:DetailPage>
 </mvc:View>

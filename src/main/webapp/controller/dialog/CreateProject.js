@@ -44,13 +44,16 @@ sap.ui.define([
     CreateProjectDialog.prototype.create = function() {
     	var oProject = this._getDialogProperty("/Project");
         this.setBusy(true);
-        this._oAPICaller.doPostJSON("activiti/project", {
-        	name: oProject.Name,
-			description: oProject.Description,
-			priority: Number(oProject.Priority),
-			type: Number(oProject.Type)
-		})
+        this._oAPICaller
+            /*.doPostJSON*/
+            .doPost("project", {
+                name: oProject.Name,
+                description: oProject.Description,
+                priority: Number(oProject.Priority),
+                type: Number(oProject.Type)
+            })
             .then(function () {
+                sap.m.MessageToast.show("Project created successfully");
                 this.close();
                 this.getParentController().initProjects();
             }.bind(this))

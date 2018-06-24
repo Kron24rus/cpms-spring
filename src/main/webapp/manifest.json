@@ -79,6 +79,11 @@
                 "async": true
             },
     		"routes": [
+				{
+					"pattern": "dialog/{id}",
+					"name": "dialog",
+					"target": ["master", "dialog"]
+				},
     		    {
     		        "pattern": "",
     		        "name": "master",
@@ -111,6 +116,11 @@
     		    }
     		],
     		"targets": {
+				"dialog": {
+					"viewName": "Dialog",
+					"viewId": "dialog",
+					"viewLevel": 3
+				},
     		    "master": {
     		        "viewName": "Master",
 					"viewLevel": 1,
