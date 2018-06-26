@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog title="Create User">
+	    <content>
+	        <f:SimpleForm>
+	            <Label text="Login" required="true"/>
+	            <Input value="{dialog>User/login}" change="validate"
+					   valueState="{= ${dialog>Exists} ? 'Error' : 'None'}" valueStateText="Already exists"/>
+	            <Label text="First name"/>
+	            <Input value="{dialog>User/firstName}" change="validate"/>
+				<Label text="Last name"/>
+				<Input value="{dialog>User/lastName}" change="validate"/>
+				<Label text="Description"/>
+				<Input value="{dialog>User/description}"/>
+	            <Label text="Position" required="true"/>
+	            <Select
+	                showSecondaryValues="true"
+	                change="validate"
+					forceSelection="false"
+					selectedKey="{dialog>User/position}"
+					items="{dialog>Positions}">
+					<core:ListItem key="{dialog>id}" text="{dialog>name}" additionalText="{dialog>id}" />
+				</Select>
+				<Label text="Password" required="true"/>
+				<Input value="{dialog>User/password}" type="Password" change="validate"/>
+				<Label text="Confirm password" required="true"/>
+				<Input value="{dialog>User/confirm}" type="Password" change="validate"/>
+				<Label text="Admin"/>
+				<Switch state="{dialog>User/admin}" customTextOn="Yes" customTextOff="No"/>
+	        </f:SimpleForm>
+	    </content>
+	    <beginButton>
+	        <Button 
+	            press="create"
+	            text="Create"
+	            enabled="{dialog>Valid}"
+	            type="Default"/>
+	    </beginButton>
+	    <endButton>
+	        <Button text="Close" press="close" type="Reject"/>
+	    </endButton>
+	</Dialog>
+</core:FragmentDefinition>

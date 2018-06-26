@@ -1,0 +1,20 @@
+<mvc:View controllerName="dt.cpms.controller.Users" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:s="sap.m.semantic" busyIndicatorDelay="100" >
+	<s:DetailPage title="User List" showNavButton="{device>/system/phone}" navButtonPress="onNavBack">
+	    <s:customHeaderContent>
+	        <Button icon="sap-icon://home" visible="{device>/system/phone}" press="navHome"/>
+	    </s:customHeaderContent>
+	    <s:content>
+    		<List items="{path: 'data>/Users', sorter: {path: 'login'}}">
+    		    <items>
+					<StandardListItem title="{data>firstName} {data>lastName}" info="{data>login}" type="Navigation" press="navUser"/>
+    		    </items>
+    		</List>
+		</s:content>
+
+		<s:customFooterContent>
+			<Button icon="sap-icon://add" text="Create" visible="{user>/isAdmin}" press="onCreate"/>
+			<Button icon="sap-icon://refresh" text="Refresh" press="initUsers"/>
+		</s:customFooterContent>
+	</s:DetailPage>
+</mvc:View>

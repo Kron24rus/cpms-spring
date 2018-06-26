@@ -113,7 +113,12 @@
     		        "pattern": "user/{id}",
     		        "name": "user",
     		        "target": ["master", "user"]
-    		    }
+    		    },
+				{
+					"pattern": "users",
+					"name": "users",
+					"target": ["master", "users"]
+				}
     		],
     		"targets": {
 				"dialog": {
@@ -152,6 +157,11 @@
     		        "viewId": "user",
 					"viewLevel": 3
     		    },
+				"users": {
+					"viewName": "Users",
+					"viewId": "users",
+					"viewLevel": 2
+				},
     		    "welcome": {
     		        "viewName": "Welcome",
     		        "viewId": "welcome",

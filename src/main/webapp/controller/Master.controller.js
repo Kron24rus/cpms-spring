@@ -34,6 +34,10 @@ sap.ui.define([
         
         navProjects: function() {
             this.getRouter().navTo("projects", {});  
+        },
+
+        navUsers: function() {
+            this.getRouter().navTo("users", {});
         }
     });
 });

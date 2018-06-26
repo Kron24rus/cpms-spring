@@ -11,6 +11,7 @@
 		        <items>
 					<StandardListItem type="Navigation" title="Projects" press="navProjects"/>
 					<StandardListItem type="Navigation" title="Messages" press="navMessages"/>
+					<StandardListItem type="Navigation" title="Users" press="navUsers" visible="{user>/isAdmin}"/>
 				</items>
 		    </List>
 		</s:content>
