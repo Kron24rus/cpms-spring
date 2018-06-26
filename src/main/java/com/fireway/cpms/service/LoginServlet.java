@@ -44,8 +44,10 @@ public class LoginServlet extends HttpServlet {
 
             }
         }
-        request.setAttribute("error", true);
-        request.getRequestDispatcher(Routes.LOGIN_HTML).forward(request, response);
+//        request.setAttribute("error", true);
+//        request.getRequestDispatcher(Routes.LOGIN_HTML).forward(request, response);
+
+        response.sendRedirect(Routes.LOGIN_HTML);
     }
 
     @Override

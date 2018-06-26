@@ -209,7 +209,7 @@ INSERT INTO EmployeeInfo (Description, EmployeePositionId)
 SET @SysAdminInfo = LAST_INSERT_ID();
 
 INSERT INTO User (Login, Password, FirstName, LastName, IsAdmin, EmployeeInfoId)
-    VALUES ('admin', @dreamteam, "Ivan", "Ivanov", TRUE, @SysAdminInfo);
+    VALUES ('admin', @dreamteam, "Vladimir", "Kuriy", TRUE, @SysAdminInfo);
 
 SET @SysAdmin = LAST_INSERT_ID();
 
@@ -219,7 +219,7 @@ INSERT INTO EmployeeInfo (Description)
 SET @TestUserInfo = LAST_INSERT_ID();
 
 INSERT INTO User (Login, Password, FirstName, LastName, IsAdmin, EmployeeInfoId)
-    VALUES ('test', @dreamteam, "Petr", "Petrov", TRUE, @TestUserInfo);
+    VALUES ('test', @dreamteam, "Alexander", "Mikheev", TRUE, @TestUserInfo);
 
 SET @TestUser = LAST_INSERT_ID();
 

@@ -2,9 +2,13 @@ sap.ui.define([
     "dt/cpms/controller/BaseController",
     "dt/cpms/components/APICaller",
     "dt/cpms/model/Formatter",
+
+    "dt/cpms/controller/dialog/CreateStage",
+    "dt/cpms/controller/dialog/AddMember",
     
-    "sap/ui/model/json/JSONModel"
-], function (BaseController, APICaller, Formatter, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox"
+], function (BaseController, APICaller, Formatter, CreateStageDialog, AddMemberDialog, JSONModel, MessageBox) {
     
     return BaseController.extend("dt.cpms.controller.Project", {
         formatter: Formatter,
@@ -20,11 +24,53 @@ sap.ui.define([
                 Stages: [],
                 Role: {},
                 Log: [],
+                Admin: false,
                 Member: false,
+                Manager: false,
                 Edit: false
             }), "page");
-            
+
+            this.setModel(new sap.ui.model.json.JSONModel({}), "dialog");
             this.getRouter().getRoute("project").attachPatternMatched(this.initProject.bind(this));
+        },
+
+        onAddMember: function() {
+            if (!this._oAddMemberDialog) {
+                this._oAddMemberDialog = new AddMemberDialog(this.getView(), this.getModel("dialog"), this._oCaller);
+            }
+            this._oAddMemberDialog.open();
+        },
+
+        onCreateStage: function() {
+            if (!this._oCreateStageDialog) {
+                this._oCreateStageDialog = new CreateStageDialog(this.getView(), this.getModel("dialog"), this._oCaller);
+            }
+            this._oCreateStageDialog.open();
+        },
+
+        onDeleteMember: function(oEvent) {
+            var oMember = oEvent.getParameter("listItem").getBindingContext("page").getObject(),
+                oPageModel = this.getModel("page"),
+                iOwnId = this.getModel("user").getProperty("/id"),
+                iProjectId = this._iId;
+
+            if (iOwnId === oMember.user.id && !oPageModel.getProperty("/Admin")) {
+                MessageToast.show("Cannot remove own user");
+            } else {
+                MessageBox.warning("Do you really want to remove?", {
+                    actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                    onClose: function(sAction) {
+                        if (sAction === MessageBox.Action.OK) {
+                            this.getView().setBusy(true);
+                            this._oCaller.doDelete("member", {project: this._iId, user: oMember.user.id})
+                                .then(this.initProject.bind(this, null))
+                                .fail(function() {
+                                    this.getView().setBusy(false);
+                                }.bind(this));
+                        }
+                    }.bind(this)
+                })
+            }
         },
         
         onEdit: function() {
@@ -38,13 +84,14 @@ sap.ui.define([
                 Log: [],
                 Role: {},
                 Member: false,
+                Manager: false,
                 Edit: false
             });
         },
         
         initProject: function(oEvent) {
-            var oArgs = oEvent.getParameter("arguments"),
-                iId = Number(oArgs.id || 1),
+            var oArgs = oEvent && oEvent.getParameter("arguments"),
+                iId = Number((oArgs && oArgs.id) || this._iId || 1),
                 bAdmin = this.getModel("user").getProperty("/isAdmin");
                 
             this._iId = iId;
@@ -56,6 +103,8 @@ sap.ui.define([
                     oModel.setProperty("/Project", oData.project);
                     oModel.setProperty("/Role", oData.role);
                     oModel.setProperty("/Member", Boolean(oData.role.member || bAdmin));
+                    oModel.setProperty("/Manager", Boolean(oData.role.manager || bAdmin));
+                    oModel.setProperty("/Admin", Boolean(bAdmin));
                     if (oData.role.member || bAdmin) {
                         var oPromise = $.Deferred();
                         this.initInternalData(oPromise, iId);

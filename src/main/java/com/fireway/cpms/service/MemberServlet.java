@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,34 @@ public class MemberServlet extends GenericServlet {
     @Override
     protected void handlePut(RequestWrapper request, ResponseWrapper response) throws ServletException, IOException, BadRequestException, DataAccessException, ForbiddenException, NotFoundException, NotImplementedException {
         handlePost(request, response);
+    }
+
+    @Override
+    protected void handleDelete(RequestWrapper request, ResponseWrapper response) throws ServletException, IOException, BadRequestException, DataAccessException, ForbiddenException, NotFoundException, NotImplementedException {
+        int currentUserId = request.getCurrentUserId();
+        int userId = request.requirePositiveParameterInteger("user");
+        int projectId = request.requirePositiveParameterInteger("project");
+
+        User user = userDao.get(userId);
+        Project project = projectDao.getProjectWithMembers(projectId);
+
+        if (user == null) {
+            throw new NotFoundException("User not found");
+        } else if (project == null) {
+            throw new NotFoundException("Project not found");
+        }
+
+        if (!request.isUserAdmin() && !projectDao.isManager(currentUserId, projectId)) {
+            throw new ForbiddenException("Not a project manager");
+        }
+
+        UserToProject userToProject = userProjectDao.get(userId, projectId);
+        if (userToProject != null) {
+            String oldRole = userToProject.getRole().getName();
+            userProjectDao.delete(userToProject);
+            logDao.log(LogType.MEMBER_UNASSIGNED, request.getCurrentUser(), project, oldRole, null);
+        }
+        response.writeJson(new HashMap<String, Object>());
     }
 
     @Override

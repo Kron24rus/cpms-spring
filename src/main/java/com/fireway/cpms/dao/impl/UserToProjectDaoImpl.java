@@ -17,9 +17,11 @@ public class UserToProjectDaoImpl implements UserToProjectDAO {
     private static final LoggerWrapper LOG = LoggerWrapper.getLogger(UserToProjectDaoImpl.class);
 
     private void fullInitialize(UserToProject userToProject) {
-        Hibernate.initialize(userToProject.getUser());
-        Hibernate.initialize(userToProject.getProject());
-        Hibernate.initialize(userToProject.getRole());
+        if (userToProject != null) {
+            Hibernate.initialize(userToProject.getUser());
+            Hibernate.initialize(userToProject.getProject());
+            Hibernate.initialize(userToProject.getRole());
+        }
     }
 
     @Override
@@ -82,7 +84,7 @@ public class UserToProjectDaoImpl implements UserToProjectDAO {
             HibernateUtil.beginTransaction();
             userToProject = (UserToProject) HibernateUtil.getSession().createCriteria(UserToProject.class)
                     .add(Restrictions.eq("userId", userId))
-                    .add(Restrictions.eq("projectId", projectId)).list();
+                    .add(Restrictions.eq("projectId", projectId)).uniqueResult();
             fullInitialize(userToProject);
             HibernateUtil.commit();
         } catch (HibernateException e) {

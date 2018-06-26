@@ -58,13 +58,15 @@ public class StageServlet extends GenericServlet{
         stage.setOrder(order);
         stage.setProject(project);
         stage.setTemplate(template);
-        if (start != null) {
+        if (StringUtils.isNotBlank(start)) {
             stage.setStartDate(DataUtils.parseTimestamp(start));
         } else {
             stage.setStartDate(null);
         }
-        if (end != null) {
+        if (StringUtils.isNotBlank(end)) {
             stage.setEndDate(DataUtils.parseTimestamp(end));
+        } else {
+            stage.setEndDate(null);
         }
 
         stageDao.create(stage);

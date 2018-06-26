@@ -105,7 +105,7 @@
     		        "target": ["master", "projects"]
     		    },
     		    {
-    		        "pattern": "stage",
+    		        "pattern": "stage/{id}",
     		        "name": "stage",
     		        "target": ["master", "stage"]
     		    },

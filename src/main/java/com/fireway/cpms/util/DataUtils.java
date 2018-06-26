@@ -24,7 +24,7 @@ public class DataUtils {
 
     public static Timestamp parseTimestamp(String date) throws BadRequestException {
         try {
-            return (Timestamp) STANDARD_DATE_FORMAT.parse(date);
+            return new Timestamp(STANDARD_DATE_FORMAT.parse(date).getTime());
         } catch (ParseException e) {
             throw new BadRequestException(e.getMessage(), e);
         }

@@ -133,7 +133,7 @@ sap.ui.define([
     APICaller.prototype.doPut = function(sUrl, oData) {
         var oNewData = jQuery.extend({}, oData || {}, {_method: "put"});
         return this._promisedRequest(sUrl, {
-            data: oData || oNewData,
+            data: oNewData,
             type: "POST"
         });
     };
@@ -149,7 +149,7 @@ sap.ui.define([
     APICaller.prototype.doDelete = function(sUrl, oData) {
         var oNewData = jQuery.extend({}, oData || {}, {_method: "delete"});
         return this._promisedRequest(sUrl, {
-            data: oData || oNewData,
+            data: oNewData,
             type: "POST"
         });
     };

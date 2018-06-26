@@ -13,6 +13,7 @@ public class LogType {
 
     public static final String MEMBER_ASSIGNED = "usrprojassign";
     public static final String MEMBER_ROLE_UPDATED = "usrprojroleupd";
+    public static final String MEMBER_UNASSIGNED = "usrprojunassign";
 
     public static final String PROJECT_STAGE_CREATED = "newstage";
 

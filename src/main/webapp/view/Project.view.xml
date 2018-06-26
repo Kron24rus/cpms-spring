@@ -28,6 +28,7 @@
         						                <Toolbar>
         						                    <Title text="Stages"/>
         						                    <ToolbarSpacer/>
+													<Button icon="sap-icon://add" text="Create" press="onCreateStage" visible="{page>/Manager}"/>
         						                </Toolbar>
         						            </headerToolbar>
         						            <items>
@@ -47,11 +48,12 @@
         					<ux:ObjectPageSubSection title="" showTitle="false">
         						<ux:blocks>
         						    <l:VerticalLayout width="100%" >
-        						        <List items="{page>/Project/members}">
+        						        <List mode="{= ${page>/Manager} ? 'Delete' : 'None'}" items="{page>/Project/members}" delete="onDeleteMember">
         						            <headerToolbar>
         						                <Toolbar>
         						                    <Title text="Members"/>
         						                    <ToolbarSpacer/>
+													<Button icon="sap-icon://add" text="Add" press="onAddMember" visible="{page>/Manager}"/>
         						                </Toolbar>
         						            </headerToolbar>
         						            <items>
@@ -71,7 +73,7 @@
         						                <Toolbar>
         						                    <Title text="Log"/>
         						                    <ToolbarSpacer/>
-													<Button icon="sap-icon://manager-insight" text="Report" press="onReport"/>
+													<!--<Button icon="sap-icon://manager-insight" text="Report" press="onReport"/>-->
         						                </Toolbar>
         						            </headerToolbar>
         						            <items>
